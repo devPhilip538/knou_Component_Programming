@@ -6,7 +6,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
-<!-- AOP 설정 / [오승필/202184-010073] -->
+	<!-- AOP 설정 / [오승필/202184-010073] -->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
@@ -21,5 +21,15 @@
 	</bean>
 
 	<context:component-scan base-package="com.springbook.biz"></context:component-scan>
-
+	
+	<!-- Advice 설정 -->
+	<bean id="loginAdvice" class="com.springbook.biz.common.LoginLogging" />
+	
+	<!-- Point cut 및 Aspect 설정 -->
+	<aop:config>
+		<aop:pointcut id="loginPointcut" expression="execution(* com.springbook.biz.user.impl.UserDAO.getUser(..))" />
+		<aop:aspect ref="loginAdvice">
+			<aop:after-returning pointcut-ref="loginPointcut" method="log" returning="returnObj" />
+		</aop:aspect>
+	</aop:config>
 </beans>

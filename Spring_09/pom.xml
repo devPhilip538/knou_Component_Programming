@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.springbook</groupId>
 	<artifactId>biz</artifactId>
-	<name>Spring_06</name>
+	<name>Spring_09</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
