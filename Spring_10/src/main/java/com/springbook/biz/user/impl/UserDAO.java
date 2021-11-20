@@ -41,7 +41,6 @@ public class UserDAO {
                 user.setRole(rs.getString("ROLE"));
             }
         } catch (Exception e) {
-        	System.out.println("Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             e.printStackTrace();
         } finally {
             JDBCUtil.close(rs, stmt, conn);
