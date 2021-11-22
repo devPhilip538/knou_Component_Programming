@@ -4,11 +4,10 @@ import org.aspectj.lang.JoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.springbook.biz.user.UserServiceClient;
 import com.springbook.biz.user.UserVO;
 
 public class LoginLogging {
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceClient.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginLogging.class);
 	/* 오승필/202184-010073 */
 	public void log(JoinPoint jp, Object returnObj) {
 		String method = jp.getSignature().getDeclaringTypeName();

@@ -3,15 +3,19 @@ package com.springbook.view.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.springbook.view.board.DeleteBoardController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import com.springbook.biz.user.UserVO;
 import com.springbook.biz.user.impl.UserDAO;
-
+/* 오승필/202184-010073 */
 public class LoginController implements Controller {
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("1111111111");
+		logger.info("로그인 호출");
 	   //1. 사용자 입력정보(id, password)추출
 		String id = request.getParameter("id");
 		String password = request.getParameter("password"); //2. DB 연동
@@ -27,9 +31,9 @@ public class LoginController implements Controller {
 		UserVO user = userDAO.getUser(vo);
 		// 로그인 처리 여부
 		if (user != null) {
-			mav.setViewName("getBoardList.do");
+			mav.setViewName("redirect:getBoardList.do");
 		} else {
-			mav.setViewName("login2.jsp");
+			mav.setViewName("redirect:login.jsp");
 		}
 		return mav;
 	}

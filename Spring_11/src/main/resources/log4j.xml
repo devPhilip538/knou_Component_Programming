@@ -12,7 +12,7 @@
 	<!-- 콘솔 로그  -->
 
 	<!-- Application Loggers -->
-	<logger name="com.springbook.biz">
+	<logger name="com.springbook">
 		<level value="info" />
 	</logger>
 	
