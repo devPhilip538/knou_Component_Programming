@@ -126,7 +126,7 @@
         
       <!-- /* 오승필/202184-010073 */ -->
       <!-- <Context docBase="Spring_10" path="/biz" reloadable="true" source="org.eclipse.jst.jee.server:Spring_10"/></Host> -->
-      <Context docBase="Spring_11" path="/" reloadable="true" source="org.eclipse.jst.jee.server:Spring_11"/><Context docBase="Spring_11" path="/boardWeb" reloadable="true" source="org.eclipse.jst.jee.server:Spring_11"/></Host>
+      <Context docBase="Spring_11" path="/boardWeb" reloadable="true" source="org.eclipse.jst.jee.server:Spring_11"/></Host>
     </Engine>
   </Service>
 </Server>
