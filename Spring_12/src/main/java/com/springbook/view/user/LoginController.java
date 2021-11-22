@@ -1,44 +1,42 @@
 package com.springbook.view.user;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.springbook.view.board.DeleteBoardController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.springbook.biz.user.UserService;
 import com.springbook.biz.user.UserVO;
 import com.springbook.biz.user.impl.UserDAO;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 /* 오승필/202184-010073 */
 @Controller
 public class LoginController{
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+	@Autowired
+	private UserService userService;
 	
-	@RequestMapping(value="/loign.do")
-	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
-		logger.info("로그인 호출");
-		   //1. 사용자 입력정보(id, password)추출
-			String id = request.getParameter("id");
-			String password = request.getParameter("password"); //2. DB 연동
-			//3. 적절한 화면으로 이동
-			ModelAndView mav = new ModelAndView();
-			// 로그인 id, password 가져오
-			// DB 연동처리(id/pw) 조회
-			UserVO vo = new UserVO();
-			vo.setId(id);
-			vo.setPassword(password);
-	
-			UserDAO userDAO = new UserDAO();
-			UserVO user = userDAO.getUser(vo);
-			// 로그인 처리 여부
-			if (user != null) {
-				mav.setViewName("redirect:getBoardList.do");
-			} else {
-				mav.setViewName("redirect:login.jsp");
-			}
-			return mav;
+	@RequestMapping(value = "/login.do", method= RequestMethod.GET)
+	public String loginView(UserVO vo, UserDAO userDAO) {
+		logger.info("로그인화면 요청");
+		return "login.jsp";
+	}
+
+	@RequestMapping(value = "/login.do", method= RequestMethod.POST)
+	public String login(@ModelAttribute("user") UserVO vo, HttpSession session) {
+		logger.info("로그인 요청");
+		UserVO user = userService.getUser(vo);
+		if (user != null) {
+			session.setAttribute("userName", user.getName());
+			return "getBoardList.do";
+		} else {
+			return "login.jsp";
+		}
 	}
 }

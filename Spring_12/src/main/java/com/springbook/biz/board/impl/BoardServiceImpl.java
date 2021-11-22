@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import com.springbook.biz.board.BoardService;
 import com.springbook.biz.board.BoardVO;
 /* 오승필/202184-010073 */
+
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
 
 	@Autowired
-	private BoardDAOSpring boardDAO;
+	private BoardDAO boardDAO;
 	/* 오승필/202184-010073 */
 	@Override
 	public void insertBoard(BoardVO vo) {
@@ -38,7 +39,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO getBoardDetail(BoardVO vo) {
 		logger.info("getBoardDetail() 호출");
-		return boardDAO.getBoard(vo);
+		return boardDAO.getBoardDetail(vo);
 	}
 	/* 오승필/202184-010073 */
 	@Override

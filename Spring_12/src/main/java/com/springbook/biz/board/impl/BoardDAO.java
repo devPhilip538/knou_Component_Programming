@@ -4,6 +4,7 @@ import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.common.JDBCUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 /* 오승필/202184-010073 */
+@Repository
 public class BoardDAO {
     private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
 

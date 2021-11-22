@@ -8,5 +8,5 @@
 		http://www.springframework.org/schema/context/spring-context-4.2.xsd"
 		>
 	<!-- /* 오승필/202184-010073 */ -->
-	<context:component-scan base-package="com.springbook.view" />
+	<context:component-scan base-package="com.springbook" />
 </beans>
