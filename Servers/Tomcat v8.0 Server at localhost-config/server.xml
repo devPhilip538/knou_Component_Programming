@@ -123,10 +123,8 @@
              Documentation at: /docs/config/valve.html
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
-        
-      <!-- /* 오승필/202184-010073 */ -->
-      <!-- <Context docBase="Spring_10" path="/biz" reloadable="true" source="org.eclipse.jst.jee.server:Spring_10"/></Host> -->
-      <Context docBase="Spring_12" path="/" reloadable="true" source="org.eclipse.jst.jee.server:Spring_12"/></Host>
+
+      <Context docBase="Spring_14" path="/" reloadable="true" source="org.eclipse.jst.jee.server:Spring_14"/></Host>
     </Engine>
   </Service>
 </Server>
