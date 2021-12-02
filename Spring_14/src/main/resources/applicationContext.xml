@@ -6,7 +6,8 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
-	<!-- AOP 설정 / [오승필/202184-010073] -->
+	<!-- /* 오승필/202184-010073 */ -->
+	<context:property-placeholder location="classpath:db.properties" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
@@ -20,7 +21,14 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<context:component-scan base-package="com.springbook.biz" />
+	<!-- Spring과 Mybatis 연동 설정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:sql-map-config.xml"/>
+	</bean>
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"></constructor-arg>
+	</bean>
 
 	<!-- Advice 설정 -->
 	<bean id="loginAdvice" class="com.springbook.biz.common.LoginLogging" />
