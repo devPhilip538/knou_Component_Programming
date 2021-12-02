@@ -8,6 +8,8 @@ public class BoardVO {
     private String writer;
     private String content;
     private Date regDate;
+    private String searchKeyword;
+    private String searchCondition;
     private int cnt;
     public int getSeq() {
         return seq;
@@ -49,7 +51,24 @@ public class BoardVO {
         this.regDate = regDate;
     }
 
-    public int getCnt() {
+    public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+	
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public int getCnt() {
         return cnt;
     }
 

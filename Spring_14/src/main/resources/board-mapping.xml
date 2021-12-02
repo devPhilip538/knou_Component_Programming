@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- /* 오승필/202184-010073 */ -->
 <mapper namespace="BoardDAO">
     <insert id="insertBoard">
         insert into board( title, writer, content)
@@ -18,9 +19,35 @@
     <select id="getBoard" resultType="board">
         select * from board where seq=#{seq}
     </select>
-
-    <select id="getBoardList" resultType="board">
+    <!-- /* 오승필/202184-010073 */ -->
+    <!-- Dyamic SQL 적용 전 -->
+    <select id="getBoardList_T" resultType="board">
+    <![CDATA[
+    	select * from board
+    	where title like '%' || #{searchKeyword} || '%'
+    	order by seq desc;
+    ]]>
+    </select>
+    
+    <select id="getBoardList_C" resultType="board">
+    <![CDATA[
+    	select * from board
+    	where content like '%' || #{searchKeyword} || '%'
+    	order by seq desc;
+    ]]>
+    </select>
+    <!-- /* 오승필/202184-010073 */ -->
+    <!-- Dyamic SQL 적용 후 -->
+        <select id="getBoardList" resultType="board">
         select * from board
+       	where 1=1 and
+       	<if test="searchCondition=='TITLE'">
+       		title like '%' || #{searchKeyword} || '%'
+       	</if>
+       	<if test="searchCondition=='CONTENT'">
+       		content like '%' || #{searchKeyword} || '%'
+       	</if>
         order by seq desc
     </select>
+    
 </mapper>

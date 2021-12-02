@@ -44,7 +44,15 @@ public class BoardDAO {
     /* 오승필/202184-010073 */
     // 글 목록 조회
     public List<BoardVO> getBoardList(BoardVO vo) {
-        logger.info("===> mybatis로 getBoardList() 기능 처리");
+        logger.info("===> mybatis로 getBoardList() 기능 처리 searchCondition : " + vo.getSearchCondition() );
+        // Dynamic SQL 적용 후
         return sqlSessionTemplate.selectList("BoardDAO.getBoardList", vo);
+     // Dynamic SQL 적용 
+//        if(vo.getSearchCondition().equals("TITLE")) {
+//        	return sqlSessionTemplate.selectList("BoardDAO.getBoardList_T", vo);
+//        } else if (vo.getSearchCondition().equals("CONTENT")) {
+//        	return sqlSessionTemplate.selectList("BoardDAO.getBoardList_C", vo);
+//        }
+        
     }
 }

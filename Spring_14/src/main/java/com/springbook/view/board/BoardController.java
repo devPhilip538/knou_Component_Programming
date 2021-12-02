@@ -12,44 +12,49 @@ import com.springbook.biz.board.BoardVO;
 
 @Controller
 public class BoardController {
-    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-    
-    @Autowired
-    private BoardService boardService;
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
-    @RequestMapping("/insertBoard.do")
-    public String insertBoard(BoardVO vo) {
-        logger.info("게시판 등록");
-        boardService.insertBoard(vo);
-        return "getBoardList.do";
-    }
+	@Autowired
+	private BoardService boardService;
 
-    @RequestMapping("/getBoardList.do")
-    public ModelAndView getBoardList(BoardVO vo, ModelAndView mav) {
-        logger.info("게시판 리스트 요청");
-        mav.addObject("boardList", boardService.getBoardList(vo));
-        mav.setViewName("getBoardList.jsp");
-        return mav;
-    }
+	@RequestMapping("/insertBoard.do")
+	public String insertBoard(BoardVO vo) {
+		logger.info("게시판 등록");
+		boardService.insertBoard(vo);
+		return "getBoardList.do";
+	}
 
-    @RequestMapping("deleteBoard.do")
-    public String deleteBoard (BoardVO vo) {
-        logger.info("글 삭제 처리");
-        boardService.deleteBoard(vo);
-        return "getBoardList.do";
-    }
+	@RequestMapping("/getBoardList.do")
+	public ModelAndView getBoardList(BoardVO vo, ModelAndView mav) {
+		logger.info("게시판 리스트 요청");
+		if (vo.getSearchCondition() == null)
+			vo.setSearchCondition("TITLE");
+		if (vo.getSearchKeyword() == null)
+			vo.setSearchKeyword("");
+		
+		mav.addObject("boardList", boardService.getBoardList(vo));
+		mav.setViewName("getBoardList.jsp");
+		return mav;
+	}
 
-    @RequestMapping("getBoard")
-    public ModelAndView getBoard (BoardVO vo, ModelAndView mav) {
-        mav.addObject("board", boardService.getBoardDetail(vo));
-        mav.setViewName("getBoard.jsp");
-        return mav;
-    }
+	@RequestMapping("/deleteBoard.do")
+	public String deleteBoard(BoardVO vo) {
+		logger.info("글 삭제 처리");
+		boardService.deleteBoard(vo);
+		return "getBoardList.do";
+	}
 
-    @RequestMapping("updateBoard.do")
-    public String updateBoard (BoardVO vo) {
-        boardService.updateBoard(vo);
-        return "getBoardList.do";
-    }
+	@RequestMapping("/getBoard.do")
+	public ModelAndView getBoard(BoardVO vo, ModelAndView mav) {
+		mav.addObject("board", boardService.getBoardDetail(vo));
+		mav.setViewName("getBoard.jsp");
+		return mav;
+	}
+
+	@RequestMapping("/updateBoard.do")
+	public String updateBoard(BoardVO vo) {
+		boardService.updateBoard(vo);
+		return "getBoardList.do";
+	}
 
 }
